@@ -25,21 +25,24 @@ import { Separator } from '@radix-ui/react-dropdown-menu'
 import { Link, useNavigate } from 'react-router-dom'
 import { useLogoutUserMutation } from '@/features/api/authApi'
 import { toast } from 'sonner'
+import { useSelector } from 'react-redux'
 
 
 const Navbar = () => {
-    const[logoutUser,{data,isSuccess}]= useLogoutUserMutation()
-    const navigate=useNavigate()
+    const [logoutUser, { data, isSuccess }] = useLogoutUserMutation()
+    const navigate = useNavigate()
     const logoutHandler = async () => {
         await logoutUser()
     }
     useEffect(() => {
         if (isSuccess) {
-            toast.success(data.message||"User Logged Out...")
+            toast.success(data.message || "User Logged Out...")
             navigate("/login")
         }
     }, [isSuccess])
-    const user=true
+    const { user } = useSelector(store => store.auth)
+    // console.log(user);
+
     return (
         <div className='h-16 dark:bg-[#0a0a0a] bg-white border-b dark:border-b-gray-800 border-b-gray-200 fixed top-0 left-0 right-0 duration-300 z-10'>
             {/* Desktop */}
@@ -55,7 +58,7 @@ const Navbar = () => {
                             <DropdownMenu>
                                 <DropdownMenuTrigger asChild>
                                     <Avatar>
-                                        <AvatarImage src="https://github.com/shadcn.png" alt="@shadcn" />
+                                        <AvatarImage className="h-full w-full object-cover rounded-full" src={user?.photoURL || "https://github.com/shadcn.png"} alt="@shadcn" />
                                         <AvatarFallback>CN</AvatarFallback>
                                     </Avatar>
                                 </DropdownMenuTrigger>
@@ -76,14 +79,20 @@ const Navbar = () => {
                                         </DropdownMenuItem>
                                         <DropdownMenuItem onClick={logoutHandler}>Log Out</DropdownMenuItem>
                                     </DropdownMenuGroup>
-                                    <DropdownMenuSeparator />
-                                    <DropdownMenuItem>Dashboard</DropdownMenuItem>
+                                    {
+                                        user.role === "instructor" && (
+                                            <>
+                                                <DropdownMenuSeparator />
+                                                <DropdownMenuItem>Dashboard</DropdownMenuItem>
+                                            </>
+                                        )
+                                    }
                                 </DropdownMenuContent>
                             </DropdownMenu>
                         ) : (
-                            <div>
-                                <Button variant="outloni">Login</Button>
-                                <Button>Signup</Button>
+                            <div className='flex justify-between gap-4'>
+                                <Button variant="outline" onClick={() => navigate("/login")}>Login</Button>
+                                <Button onClick={() => navigate("/login")}>Signup</Button>
                             </div>
                         )
                     }
@@ -93,7 +102,7 @@ const Navbar = () => {
             </div>
             {/* Mobile device */}
             <div className="flex md:hidden items-center justify-between px-4 h-full">
-                <h1 className='font-extrabold text-2xl'>E-Learning</h1>
+                <h1 className='font-extrabold text-2xl'>Kuldeep-LMS</h1>
                 <MobileNavbar />
             </div>
         </div>
@@ -117,7 +126,7 @@ const MobileNavbar = () => {
                 </SheetTrigger>
                 <SheetContent className={"flex flex-col"}>
                     <SheetHeader className={"flex flex-row justify-between mt-2 items-center"}>
-                        <SheetTitle>E-Learning</SheetTitle>
+                        <SheetTitle>Kuldeep-LMS</SheetTitle>
                         <DarkMode />
                     </SheetHeader>
                     <Separator className='mr-2' />

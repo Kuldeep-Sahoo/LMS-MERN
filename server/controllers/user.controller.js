@@ -74,7 +74,7 @@ export const login = async (req, res) => {
 export const logout = async (req, res) => {
   try {
     return res.status(200).cookie("token", "", { maxAge: 0 }).json({
-      message: "Loggedout Successfully",
+      message: "Log out Successfully...",
       success: true,
     });
   } catch (error) {
@@ -125,7 +125,7 @@ export const updateProfile = async (req, res) => {
     // extract public id of the old image from the url if it is exists
     // if (user.photoURL) {
     //   const publicId = user.photoURL.split("/").pop().split(".")[0];
-    //   deleteMediaFromCloudinary(publicId);
+    //   await deleteMediaFromCloudinary(publicId);
     // }
 
     const cloudResponse = await uploadMedia(profilePhoto.path);

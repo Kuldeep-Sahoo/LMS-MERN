@@ -3,6 +3,7 @@ import dotenv from "dotenv";
 import connectDB from "./database/db.js";
 import colors from "colors";
 import userRoute from "./routes/user.route.js";
+import courseRout from "./routes/course.route.js";
 import cookieParser from "cookie-parser";
 import cors from "cors";
 dotenv.config();
@@ -43,6 +44,7 @@ app.use(
 
 // apis
 app.use("/api/v1/user", userRoute);
+app.use("/api/v1/course", courseRout);
 
 app.get("/home", (req, res) => {
   res.status(200).json({
@@ -50,7 +52,6 @@ app.get("/home", (req, res) => {
     message: "Hello i am comming from backend",
   });
 });
-
 
 const logResponse = (req, res, next) => {
   const originalSend = res.send;
@@ -68,7 +69,6 @@ const logResponse = (req, res, next) => {
 
 // Use the middleware
 app.use(logResponse);
-
 
 app.listen(port, () => {
   console.log(`Server Listen at PORT: ${port}`.yellow.bgBlue);

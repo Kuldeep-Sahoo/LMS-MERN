@@ -13,7 +13,7 @@ import { toast } from 'sonner'
 const Profile = () => {
     const [name, setName] = useState("")
     const [profilePhoto, setProfilePhoto] = useState("")
-    const { data, isLoading ,refetch} = useLoadUserQuery()
+    const { data, isLoading, refetch } = useLoadUserQuery()
     const [updateUser
         , {
             data: updatedUserData,
@@ -24,7 +24,8 @@ const Profile = () => {
         }] = useUpdateUserMutation()
 
     console.log(data);
-    const user = data && data.user ;
+
+    const user = data && data.user;
 
 
     const onChangandler = (e) => {
@@ -40,6 +41,9 @@ const Profile = () => {
         formData.append("profilePhoto", profilePhoto)
         await updateUser(formData)
     };
+    useEffect(() => {
+        refetch()
+    }, [])
 
     useEffect(() => {
         if (isSuccess) {
@@ -59,7 +63,7 @@ const Profile = () => {
                 <div className="flex flex-col items-center">
                     <Avatar className="h-24 w-24 md:h-32 md:w-32 mb-4">
                         <AvatarImage
-                            src={user.photoURL || "https://github.com/shadcn.png"}
+                            src={user?.photoURL || "https://github.com/shadcn.png"}
                             alt="@shadcn"
                             className="h-full w-full object-cover rounded-full"
                         />
