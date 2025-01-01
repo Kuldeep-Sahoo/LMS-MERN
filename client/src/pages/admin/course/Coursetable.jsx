@@ -83,7 +83,7 @@ const Coursetable = () => {
           {data.courses.map((course) => (
             <TableRow key={course._id}>
               <TableCell className="font-medium">{course.coursePrice ?"₹ "+course.coursePrice:"NA"}</TableCell>
-              <TableCell>{course?.isPublished?"Published":"Draft"}</TableCell>
+              <TableCell><Button className="px-3">{course?.isPublished ? "Published" : "Draft"}</Button></TableCell>
               <TableCell>{course.courseTitle}</TableCell>
               <TableCell className="text-right"><Button size="sm" variant="outline" onClick={()=>navigate(`${course._id}`)}><Edit/></Button></TableCell>
             </TableRow>

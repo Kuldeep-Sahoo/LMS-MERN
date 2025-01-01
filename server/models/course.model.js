@@ -11,6 +11,9 @@ const courseSchema = new mongoose.Schema(
     description: {
       type: String,
     },
+    courseThumbnail: {
+      type: String,
+    },
     category: {
       type: String,
       required: true,

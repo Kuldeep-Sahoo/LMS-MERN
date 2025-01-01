@@ -12,6 +12,11 @@ import DashBoard from './pages/admin/Dashboard'
 import Coursetable from './pages/admin/course/Coursetable'
 import AddCourse from './pages/admin/course/AddCourse'
 import EditCourse from './pages/admin/course/EditCourse'
+import CreateLecture from './pages/admin/lecture/CreateLecture'
+import EditLecture from './pages/admin/lecture/EditLecture'
+import CourseDetail from './pages/student/CourseDetail'
+import HeroSection from './components/HeroSection'
+import CourseProgress from './pages/student/CourseProgress'
 
 const appRouter = createBrowserRouter([
   {
@@ -20,11 +25,10 @@ const appRouter = createBrowserRouter([
     children: [
       {
         path: "/",
-        element: (
-          <>
-            <Cources />
-          </>
-        )
+        element: <>
+          <HeroSection />
+          <Cources />
+        </>
       },
       {
         path: "login",
@@ -37,6 +41,14 @@ const appRouter = createBrowserRouter([
       {
         path: "profile",
         element: <Profile />
+      },
+      {
+        path: "course-details/:courseId",
+        element: <CourseDetail />
+      },
+      {
+        path: "course-progress/:courseId",
+        element: <CourseProgress />
       },
       // admin rout starts here
 
@@ -54,11 +66,19 @@ const appRouter = createBrowserRouter([
           },
           {
             path: "course/create",
-            element:<AddCourse/>
+            element: <AddCourse />
           },
           {
             path: "course/:courseId",
-            element:<EditCourse/>
+            element: <EditCourse />
+          },
+          {
+            path: "course/:courseId/lecture",
+            element: <CreateLecture />
+          },
+          {
+            path: "course/:courseId/lecture/:lectureId",
+            element: <EditLecture />
           },
         ]
       }

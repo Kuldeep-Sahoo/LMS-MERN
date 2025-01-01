@@ -1,3 +1,4 @@
+import HeroSection from '@/components/HeroSection'
 import Navbar from '@/components/Navbar'
 import React from 'react'
 import { Outlet } from 'react-router-dom'
@@ -5,7 +6,7 @@ import { Outlet } from 'react-router-dom'
 const MainLayout = () => {
   return (
       <div>
-          <Navbar />
+      <Navbar />
           <div>
               <Outlet/>
           </div>

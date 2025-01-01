@@ -1,9 +1,13 @@
 import { Skeleton } from '@/components/ui/skeleton'
 import React from 'react'
 import Course from './Cource'
+import { useGetCoursesQuery } from '@/features/api/courseApi'
 
 const Cources = () => {
-    const isloading = false
+    const { data, isloading, isError } = useGetCoursesQuery()
+    console.log(data);
+
+    if (isError) return <h1>Some Error occured while fetching courses...</h1>
     return (
         <div className='bg-gray-50 '>
             <div className="max-w-7xl mx-auto p-6">
@@ -13,8 +17,8 @@ const Cources = () => {
                         isloading ? [1, 1, 1, 1, 1, 1, 1, 1].map((_, index) => (
                             <CourseSkeleton key={index} />
                         )) : (
-                            [1, 1, 1, 1, 1].map((course, index) => (
-                                <Course key={index} />
+                            data?.courses && data.courses.map((course, index) => (
+                                <Course key={index} course={course} />
                             ))
                         )
                     }

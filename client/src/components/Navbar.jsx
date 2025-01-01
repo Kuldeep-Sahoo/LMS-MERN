@@ -27,6 +27,7 @@ import { useLogoutUserMutation } from '@/features/api/authApi'
 import { toast } from 'sonner'
 import { useSelector } from 'react-redux'
 
+// console.log(process.env.REACT_APP_API_URL);
 
 const Navbar = () => {
     const [logoutUser, { data, isSuccess }] = useLogoutUserMutation()
@@ -49,7 +50,7 @@ const Navbar = () => {
             <div className='max-w-7xl mx-auto hidden md:flex justify-between items-center gap-10 h-full'>
                 <div className='flex items-center gap-2'>
                     <School size={"30"} />
-                    <h1 className='hidden md:block font-extrabold text-2xl'>E-Learning</h1>
+                    <h1 className='hidden md:block font-extrabold text-2xl'><Link to="/">Kuldeep-LMS</Link></h1>
                 </div>
                 {/* User icon and dark mode icon */}
                 <div className='flex items-center gap-8'>
@@ -102,7 +103,7 @@ const Navbar = () => {
             </div>
             {/* Mobile device */}
             <div className="flex md:hidden items-center justify-between px-4 h-full">
-                <h1 className='font-extrabold text-2xl'>Kuldeep-LMS</h1>
+                <h1 className='font-extrabold text-2xl'><Link to="/">Kuldeep-LMS</Link></h1>
                 <MobileNavbar />
             </div>
         </div>

@@ -4,6 +4,9 @@ import connectDB from "./database/db.js";
 import colors from "colors";
 import userRoute from "./routes/user.route.js";
 import courseRout from "./routes/course.route.js";
+import mediaRoute from "./routes/media.route.js";
+import purchaseRoute from "./routes/coursePurchase.route.js";
+import courseProgressRoute from "./routes/courseProgress.route.js";
 import cookieParser from "cookie-parser";
 import cors from "cors";
 dotenv.config();
@@ -19,6 +22,7 @@ app.use(express.json());
 app.use(cookieParser());
 
 const allowedOrigins = [
+  process.env.FRONTEND_URL,
   "http://localhost:5173",
   "http://192.168.59.1:5173",
   "http://192.168.217.1:5173",
@@ -33,6 +37,7 @@ app.use(
   cors({
     origin: (origin, callback) => {
       if (allowedOrigins.includes(origin) || !origin) {
+        console.log("origin:", origin);
         callback(null, true);
       } else {
         callback(new Error("Not allowed by CORS"));
@@ -45,6 +50,9 @@ app.use(
 // apis
 app.use("/api/v1/user", userRoute);
 app.use("/api/v1/course", courseRout);
+app.use("/api/v1/media", mediaRoute);
+app.use("/api/v1/purchase", purchaseRoute);
+app.use("/api/v1/progress", courseProgressRoute);
 
 app.get("/home", (req, res) => {
   res.status(200).json({
