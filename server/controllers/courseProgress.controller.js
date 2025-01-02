@@ -51,7 +51,7 @@ export const updateLectureProgress = async (req, res) => {
       userId,
     });
     if (!courseProgress) {
-      courseProgress=new CourseProgress({
+      courseProgress = new CourseProgress({
         userId,
         courseId,
         completed: false,
@@ -96,13 +96,15 @@ export const markAsCompleted = async (req, res) => {
       res.status(404).json({
         message: "Course progress not found...",
       });
-      }
-      courseProgress.lectureProgress.map((lectureProgress)=>lectureProgress.viewed=true)
-      courseProgress.completed = true
-      await courseProgress.save()
-      return res.status(200).json({
-          message:"Course marked as Completed..."
-      })
+    }
+    courseProgress.lectureProgress.map(
+      (lectureProgress) => (lectureProgress.viewed = true)
+    );
+    courseProgress.completed = true;
+    await courseProgress.save();
+    return res.status(200).json({
+      message: "Course marked as Completed...",
+    });
   } catch (error) {
     console.log(error);
   }
@@ -116,13 +118,15 @@ export const markAsIncompleted = async (req, res) => {
       res.status(404).json({
         message: "Course progress not found...",
       });
-      }
-      courseProgress.lectureProgress.map((lectureProgress)=>lectureProgress.viewed=false)
-      courseProgress.completed = false
-      await courseProgress.save()
-      return res.status(200).json({
-          message:"Course marked as Incompleted..."
-      })
+    }
+    courseProgress.lectureProgress.map(
+      (lectureProgress) => (lectureProgress.viewed = false)
+    );
+    courseProgress.completed = false;
+    await courseProgress.save();
+    return res.status(200).json({
+      message: "Course marked as Incompleted...",
+    });
   } catch (error) {
     console.log(error);
   }

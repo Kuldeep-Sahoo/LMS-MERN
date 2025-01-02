@@ -9,7 +9,6 @@ import ReactPlayer from 'react-player'
 import { useNavigate, useParams } from 'react-router-dom'
 
 const CourseDetail = () => {
-    const purchasedCourse = false
     const params = useParams()
     const { courseId } = params
     // console.log(courseId);
@@ -30,9 +29,9 @@ const CourseDetail = () => {
         <div className='mt-16 space-y-5'>
             <div className="bg-[#2d2f31] text-white">
                 <div className="max-w-7xl mx-auto py-8 px-4 md:px:8 flex flex-col gap-2">
-                    <h1 className='font-bold text-2xl md:text-3xl'>{course.courseTitle}</h1>
-                    <p className='text-base md:text-lg'>{course.subTitle}</p>
-                    <p>Created By {""}<span className='underline italic text-[#c0c4fc]'>{course.creator.name}</span></p>
+                    <h1 className='font-bold text-2xl md:text-3xl'>{course?.courseTitle}</h1>
+                    <p className='text-base md:text-lg'>{course?.subTitle}</p>
+                    <p>Created By {""}<span className='underline italic text-[#c0c4fc]'>{course?.creator.name}</span></p>
                     <div className='flex items-center gap-2 text-sm'>
                         <BadgeInfo size={16} />
                         <p>Last updated {course?.createdAt.split("T")[0]}</p>
@@ -57,7 +56,7 @@ const CourseDetail = () => {
                                     <div key={idx} className='flex items-center gap-3 text-sm'>
                                         <span>
                                             {
-                                                true ? <PlayCircle size={14} /> : <Lock size={14} />
+                                                lecture?.isPreviewFree ? <PlayCircle size={14} /> : <Lock size={14} />
                                             }
                                         </span>
                                         <p>{lecture.lectureTitle}</p>
@@ -79,9 +78,9 @@ const CourseDetail = () => {
                                     controls
                                 />
                             </div>
-                            <h1>Lecture title</h1>
+                            <h1>{course.lectures[0]?.lectureTitle}</h1>
                             <Separator className="my-2" />
-                            <h1 className='text-lg md:text-xl font-semibold'>Course Price</h1>
+                            <h1 className='text-lg md:text-xl font-semibold'>₹{course.coursePrice}</h1>
                         </CardContent>
                         <CardFooter className="flex justify-center p-4">
 

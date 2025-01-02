@@ -84,7 +84,7 @@ const Navbar = () => {
                                         user.role === "instructor" && (
                                             <>
                                                 <DropdownMenuSeparator />
-                                                <DropdownMenuItem>Dashboard</DropdownMenuItem>
+                                                <DropdownMenuItem ><Link to={"/admin/dashboard"}>Dashboard</Link></DropdownMenuItem>
                                             </>
                                         )
                                     }
@@ -115,7 +115,19 @@ export default Navbar
 
 
 const MobileNavbar = () => {
-    const role = "instructor"
+    const [logoutUser, { data, isSuccess }] = useLogoutUserMutation()
+    const navigate = useNavigate()
+    const logoutHandler = async () => {
+        await logoutUser()
+    }
+    useEffect(() => {
+        if (isSuccess) {
+            toast.success(data.message || "User Logged Out...")
+            navigate("/login")
+        }
+    }, [isSuccess])
+    const { user } = useSelector(store => store.auth)
+
     return (
 
         <>
@@ -130,26 +142,36 @@ const MobileNavbar = () => {
                         <SheetTitle>Kuldeep-LMS</SheetTitle>
                         <DarkMode />
                     </SheetHeader>
-                    <Separator className='mr-2' />
-                    <nav className='flex flex-col space-y-4 '>
-                        <SheetClose asChild>
-                            <Link to={"my-learning"}>My Learning</Link>
-                        </SheetClose>
-                        <SheetClose asChild>
-                            <Link to={"profile"}>Edit Profile</Link>
-                        </SheetClose>
-                        <SheetClose asChild>
-                            <Link >Log Out</Link>
-                        </SheetClose>
-                    </nav>
-                    {
-                        role === "instructor" && (
-                            <SheetFooter>
+                    {user ? (
+                        <>
+                            <Separator className='mr-2' />
+                            <nav className='flex flex-col space-y-4 '>
                                 <SheetClose asChild>
-                                    <Button type="submit">Dashboard</Button>
+                                    <Link to={"my-learning"}>My Learning</Link>
                                 </SheetClose>
-                            </SheetFooter>
+                                <SheetClose asChild>
+                                    <Link to={"profile"}>Edit Profile</Link>
+                                </SheetClose>
+                                <SheetClose asChild>
+                                    <Link onClick={logoutHandler}>Log Out</Link>
+                                </SheetClose>
+                            </nav>
+                            {
+                                user?.role === "instructor" && (
+                                    <SheetFooter>
+                                        <SheetClose className='flex flex-col items-center ' >
+                                            <Button asChild className="w-[100%]"><Link to={"/admin/course"}>Courses</Link></Button>
+                                            <Button asChild type="submit" className='mt-5 w-[100%]'><Link to={"/admin/dashboard"}>Dashboard</Link></Button>
+                                        </SheetClose>
+                                    </SheetFooter>
 
+                                )
+                            }
+                        </>) : (
+                            <div className='flex flex-col justify-between gap-4'>
+                                <Button variant="outline" onClick={() => navigate("/login")}>Login</Button>
+                                <Button onClick={() => navigate("/login")}>Signup</Button>
+                            </div>
                         )
                     }
                 </SheetContent>

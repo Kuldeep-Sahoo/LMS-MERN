@@ -55,7 +55,10 @@ const CourseProgress = () => {
         }
     }, [completedSuccess, incompletedSuccess])
 
-
+    const handleSelectLecture = (lecture) => {
+        setCurrentLecture(lecture)
+        handleLectureProgress(lecture._id)
+    }
     if (isError) return <h1>Failed to load course details</h1>
     if (isLoading) return <h1>Loading...</h1>
     return (
@@ -109,7 +112,7 @@ const CourseProgress = () => {
                             <Card
                                 key={lecture._id}
                                 className={`mb-3 hover:cursor-pointer transition transform ${lecture._id === currentLecture?._id ? "bg-gray-200" : "dark:bg-gray-800"}`}
-                                onClick={() => setCurrentLecture(lecture)}
+                                onClick={()=>handleSelectLecture(lecture)}
 
                             >
                                 <CardContent className="flex items-center justify-between p-4">

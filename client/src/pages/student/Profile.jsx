@@ -152,7 +152,7 @@ const Profile = () => {
                             <h1>You have not enrolled yet...</h1>
                         ) :
                             (
-                                user.enrolledCourses.map((course, index) => (<Course key={index} />))
+                                user.enrolledCourses.map((course, index) => (<Course course={course} key={index} />))
                             )
                     }
                 </div>

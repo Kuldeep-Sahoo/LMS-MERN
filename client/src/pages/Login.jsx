@@ -64,17 +64,17 @@ const Login = () => {
   const navigate=useNavigate()
   useEffect(() => {
     if (registerIsSuccess && registerData) {
-      toast.success(registerData.message || "Signup Successfull...")
+      toast.success(registerData?.message || "Signup Successfull...")
     }
     if (registerError) {
-      toast.error(registerError.data.message || "Signup failed!!!")
+      toast.error(registerError.data?.message || "Signup failed!!!")
     }
     if (loginIsSuccess && loginData) {
-      toast.success(loginData.message || "Login Successfull...")
+      toast.success(loginData?.message || "Login Successfull...")
       navigate("/")
     }
     if (loginError) {
-      toast.error(loginError.data.message || "Login failed!!!")
+      toast.error(loginError.data?.message || "Login failed!!!")
     }
   }, [
     loginIsLoading,

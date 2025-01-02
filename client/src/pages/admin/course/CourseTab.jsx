@@ -15,12 +15,19 @@ import {
 } from "@/components/ui/select"
 import { Loader2 } from 'lucide-react'
 import { useNavigate, useParams } from 'react-router-dom'
-import { useEditCourseMutation, useGetCourseByIdQuery, usePublishCOurseMutation } from '@/features/api/courseApi'
+import { useEditCourseMutation, useGetCourseByIdQuery, usePublishCOurseMutation, useRemoveCourseMutation } from '@/features/api/courseApi'
 import { toast } from 'sonner'
 import LoadingSpinner from '@/components/LoadingSpinner'
 const CourseTab = () => {
     const navigate = useNavigate()
     const [editCourse, { data, isLoading, isSuccess, error }] = useEditCourseMutation()
+    const [removeCourse] = useRemoveCourseMutation()
+
+    const handleRemoveCourse = async () => {
+        await removeCourse(courseId)
+        navigate(-1)
+    }
+
     const params = useParams()
     const courseId = params.courseId
     // console.log(courseId);
@@ -34,7 +41,7 @@ const CourseTab = () => {
         courseThumbnail: "",
         description: ""
     })
-    const { data: courseByIdData, isLoading: courseByIdLoading ,refetch} = useGetCourseByIdQuery(courseId, { refetchOnMountOrArgChange: true })
+    const { data: courseByIdData, isLoading: courseByIdLoading, refetch } = useGetCourseByIdQuery(courseId, { refetchOnMountOrArgChange: true })
     useEffect(() => {
         if (courseByIdData?.course) {
             const course = courseByIdData?.course
@@ -89,15 +96,15 @@ const CourseTab = () => {
     }
 
 
-    const [publishCourse,{}] = usePublishCOurseMutation()
+    const [publishCourse, { }] = usePublishCOurseMutation()
 
     const publicStatusHandler = async (action) => {
         try {
-            const res=await publishCourse({courseId,query:action})
+            const res = await publishCourse({ courseId, query: action })
             if (res.data) {
                 refetch()
                 console.log(res);
-                
+
                 toast.success(res.data.message)
             }
 
@@ -129,17 +136,17 @@ const CourseTab = () => {
                             Make changes to your course here. Click save when you are done.
                         </CardDescription>
                     </div>
-                    <div className="space-x-2">
-                        <Button disabled={courseByIdData?.course.lectures.length===0} variant="outline" onClick={() => publicStatusHandler(courseByIdData?.course.isPublished ? "false" : "true")}>
+                    <div className="space-x-2 flex flex-col xl:flex-row justify-between gap-1 items-center xl:gap-0">
+                        <Button disabled={courseByIdData?.course.lectures.length === 0} variant="outline" onClick={() => publicStatusHandler(courseByIdData?.course.isPublished ? "false" : "true")}>
                             {courseByIdData?.course.isPublished ? "Unpublish" : "Publish"}
                         </Button>
-                        <Button>
+                        <Button onClick={handleRemoveCourse}>
                             Remove course
                         </Button>
                     </div>
                 </CardHeader>
                 <CardContent>
-                    <div className="space-y-4 mt-4">
+                    <div className="space-y-4">
                         <div>
                             <Label>Title</Label>
                             <Input
@@ -162,7 +169,7 @@ const CourseTab = () => {
                             <Label>Description</Label>
                             <RichTextEditor input={input} setInput={setInput} />
                         </div>
-                        <div className='flex items-center gap-5'>
+                        <div className='flex items-center gap-5 flex-wrap'>
                             <div>
                                 <Label>Category</Label>
                                 <Select value={input.category} onValueChange={selectCategory}>

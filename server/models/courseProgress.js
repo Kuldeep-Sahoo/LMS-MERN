@@ -1,13 +1,12 @@
 import mongoose from "mongoose";
 const lectureProgressSchema = new mongoose.Schema({
-    lectureId: {
-        type:String
-    },
-    viewed: {
-        type:Boolean
-    },
-
-})
+  lectureId: {
+    type: String,
+  },
+  viewed: {
+    type: Boolean,
+  },
+});
 const courseProgressSchema = new mongoose.Schema({
   userId: {
     type: String,
@@ -21,5 +20,7 @@ const courseProgressSchema = new mongoose.Schema({
   lectureProgress: [lectureProgressSchema],
 });
 
-
-export const CourseProgress=mongoose.model("CourseProgress",courseProgressSchema)
+export const CourseProgress = mongoose.model(
+  "CourseProgress",
+  courseProgressSchema
+);

@@ -18,20 +18,20 @@ const Course = ({ course }) => {
             </div>
             <CardContent className="px-5 py-4 space-y-3 ">
                 <h1 className='mt-3 hover:underline font-bold truncate text-lg'>
-                    <Link to={`course-details/${course._id}`}>{course?.courseTitle}</Link>
+                    <Link to={`/course-details/${course?._id}`}>{course?.courseTitle}</Link>
                 </h1>
                 <div className='flex items-center justify-between '>
                     <div className='flex items-center gap-3 '>
                         <Avatar className="h-8 w-8">
-                            <AvatarImage className="h-full w-full object-cover rounded-full"  src={course.creator?.photoURL || "https://github.com/shadcn.png"} alt="@shadcn" />
+                            <AvatarImage className="h-full w-full object-cover rounded-full"  src={course?.creator?.photoURL || "https://github.com/shadcn.png"} alt="@shadcn" />
                             <AvatarFallback>CN</AvatarFallback>
                         </Avatar>
-                        <h1 className='font-medium text-sm'>{course.creator?.name}</h1>
+                        <h1 className='font-medium text-sm'>{course?.creator?.name }</h1>
                     </div>
-                    <Badge className={"bg-blue-500 text-white px-2 py-1 text-xs rounded-full"}>{course.courseLevel}</Badge>
+                    <Badge className={"bg-blue-500 text-white px-2 py-1 text-xs rounded-full"}>{course?.courseLevel}</Badge>
                 </div>
                 <div className='text-lg font-bold'>
-                    <span>₹{course.coursePrice}</span>
+                    <span>₹{course?.coursePrice}</span>
                 </div>
             </CardContent>
         </Card>

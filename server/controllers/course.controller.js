@@ -33,6 +33,78 @@ export const createCourse = async (req, res) => {
   }
 };
 
+export const removeCourse = async (req, res) => {
+  try {
+    const { courseId } = req.body;
+
+    // Find the course by ID
+    const course = await Course.findById(courseId);
+
+    // Check if the course exists
+    if (!course) {
+      return res.status(404).json({
+        message: "Course not found...",
+        success: false,
+      });
+    }
+
+    // Remove associated lectures
+    await Lecture.deleteMany({ _id: { $in: course.lectures } });
+
+    // Remove the course
+    await Course.findByIdAndDelete(courseId);
+
+    // Send success response
+    return res.status(200).json({
+      message: "Course and associated lectures removed successfully",
+      success: true,
+    });
+  } catch (error) {
+    console.error("Error removing course:", error);
+    return res.status(500).json({
+      message: "Failed to remove course and associated lectures",
+      success: false,
+      error: error.message,
+    });
+  }
+};
+
+export const searchCourse = async (req, res) => {
+  try {
+    const { query = "", categories = [], sortByPrice = "" } = req.query;
+    // create search query
+    const searchCriteria = {
+      isPublished: true,
+      $or: [
+        { courseTitle: { $regex: query, $options: "i" } },
+        { subTitle: { $regex: query, $options: "i" } },
+        { category: { $regex: query, $options: "i" } },
+      ],
+    };
+    // if categories are selected
+    if (categories.length > 0) {
+      searchCriteria.category = { $in: categories };
+    }
+    // define sorting order
+    const sortOptions = {};
+    if (sortByPrice === "low") {
+      sortOptions.coursePrice = 1; //sort by price in ascending order
+    } else if (sortByPrice === "high") {
+      sortOptions.coursePrice = -1; //sort by price in descending order
+    }
+    let courses = await Course.find(searchCriteria)
+      .populate({ path: "creator", select: "name photoURL" })
+      .sort(sortOptions);
+
+    return res.status(200).json({
+      success: true,
+      courses: courses || [],
+    });
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 export const getPublishedCourse = async (req, res) => {
   try {
     const courses = await Course.find({ isPublished: true }).populate({
@@ -48,7 +120,7 @@ export const getPublishedCourse = async (req, res) => {
     return res.status(200).json({
       courses,
       success: true,
-    })
+    });
   } catch (error) {
     return res.status(500).json({
       message: "Failed to get published courses...",

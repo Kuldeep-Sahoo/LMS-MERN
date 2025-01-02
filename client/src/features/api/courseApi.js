@@ -20,7 +20,38 @@ export const courseApi = createApi({
           category,
         },
       }),
-      providesTags: ["Refetch_Creator_Course"],
+      invalidatesTags: ["Refetch_Creator_Course"],
+    }),
+    removeCourse: builder.mutation({
+      query: (courseId) => ({
+        url: "/remove-course",
+        method: "DELETE",
+        body: {
+          courseId,
+        },
+      }),
+      invalidatesTags: ["Refetch_Creator_Course"],
+    }),
+    getSearchCourses: builder.query({
+      query: ({ searchQuery, categories, sortByPrice }) => {
+        // Build query string
+        let queryString = `/search?query=${encodeURIComponent(searchQuery)}`;
+        // append category
+        if (categories && categories.length > 0) {
+          const categoriesString = categories.map(encodeURIComponent).join(",");
+          queryString += `&categories=${categoriesString}`;
+        }
+        // append sort by price if available
+        if (sortByPrice) {
+          queryString += `&sortByPrice=${encodeURIComponent(sortByPrice)}`;
+        }
+        console.log(queryString);
+
+        return {
+          url: queryString,
+          method: "GET",
+        };
+      },
     }),
     getCourses: builder.query({
       query: () => ({
@@ -33,7 +64,7 @@ export const courseApi = createApi({
         url: "",
         method: "GET",
       }),
-      invalidatesTags: ["Refetch_Creator_Course"],
+      providesTags: ["Refetch_Creator_Course"],
     }),
     editCourse: builder.mutation({
       query: ({ formData, courseId }) => ({
@@ -99,6 +130,8 @@ export const courseApi = createApi({
 });
 export const {
   useCreateCourseMutation,
+  useRemoveCourseMutation,
+  useGetSearchCoursesQuery,
   useGetCoursesQuery,
   useGetCreatorCourseQuery,
   useEditCourseMutation,

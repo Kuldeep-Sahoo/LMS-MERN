@@ -16,4 +16,4 @@ router
 router.route("/:courseId/complete").post(isAuthenticated, markAsCompleted);
 router.route("/:courseId/incomplete").post(isAuthenticated, markAsIncompleted);
 
-export default router
+export default router;

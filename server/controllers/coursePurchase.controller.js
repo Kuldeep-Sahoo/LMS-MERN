@@ -177,7 +177,7 @@ export const getAllPurchasedCourse = async (_, res) => {
       });
     }
     return res.status(200).json({
-      purchasedcourse,
+      purchasedcourse: purchasedCourses,
     });
   } catch (error) {
     console.log(error);
