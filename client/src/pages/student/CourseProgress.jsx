@@ -73,13 +73,13 @@ const CourseProgress = () => {
                         completed ? (
                             <div className="flex items-center">
                                 <CheckCircle className="h-4 w-4 mr-2" />
-                                <span>Completed</span>
+                                <span>Mark as Incompleted all</span>
                             </div>
                         ) :
                             (
                                 <>
-                                    <CheckCircle />
-                                    <span>Completed</span>
+                                    {/* <CheckCircle /> */}
+                                    <span>Mark as Completed all</span>
                                 </>
                             )
                     }
@@ -111,7 +111,7 @@ const CourseProgress = () => {
                         {courseDetails?.lectures.map((lecture) => (
                             <Card
                                 key={lecture._id}
-                                className={`mb-3 hover:cursor-pointer transition transform ${lecture._id === currentLecture?._id ? "bg-gray-200" : "dark:bg-gray-800"}`}
+                                className={`mb-3 hover:cursor-pointer transition transform ${lecture._id === currentLecture?._id ? "bg-gray-200 dark:bg-gray-600" : "dark:bg-gray-800"}`}
                                 onClick={()=>handleSelectLecture(lecture)}
 
                             >

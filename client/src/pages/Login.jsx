@@ -182,7 +182,7 @@ const Login = () => {
                 />
               </div>
             </CardContent>
-            <CardFooter style={{ display: "flex", justifyContent: "center" }}>
+            <CardFooter style={{ display: "flex", justifyContent: "center" }} className="flex-col">
               <Button disabled={loginIsLoading} onClick={() => handleRegistration("login")}>
                 {
                   loginIsLoading ? (

@@ -133,7 +133,7 @@ const MobileNavbar = () => {
         <>
             <Sheet>
                 <SheetTrigger asChild>
-                    <Button size="icon" className="rounded-full bg-gray-200 hover:bg-gray-200" variant="outline">
+                    <Button size="icon" className="rounded-full  hover:bg-gray-200" variant="outline">
                         <Menu />
                     </Button>
                 </SheetTrigger>
@@ -153,26 +153,41 @@ const MobileNavbar = () => {
                                     <Link to={"profile"}>Edit Profile</Link>
                                 </SheetClose>
                                 <SheetClose asChild>
-                                    <Link onClick={logoutHandler}>Log Out</Link>
+                                    <Link onClick={logoutHandler} className='text-red-600 font-bold hover:underline'>Log Out</Link>
                                 </SheetClose>
                             </nav>
                             {
                                 user?.role === "instructor" && (
                                     <SheetFooter>
-                                        <SheetClose className='flex flex-col items-center ' >
-                                            <Button asChild className="w-[100%]"><Link to={"/admin/course"}>Courses</Link></Button>
-                                            <Button asChild type="submit" className='mt-5 w-[100%]'><Link to={"/admin/dashboard"}>Dashboard</Link></Button>
+                                        <SheetClose asChild className="flex flex-col items-center">
+                                            <Button className="w-full mt-5" onClick={() => navigate("/admin/course")}>Courses</Button>
                                         </SheetClose>
+                                        {/* <hr />
+                                        <hr />
+                                        <hr />
+                                        <hr />
+                                        <hr />
+                                        <hr />
+                                        <hr /> */}
+                                        <SheetClose asChild>
+                                            <Button onClick={() => navigate("/admin/dashboard")} className=" w-full">Dashboard</Button>
+                                        </SheetClose>
+
                                     </SheetFooter>
+
 
                                 )
                             }
                         </>) : (
-                            <div className='flex flex-col justify-between gap-4'>
+                        <div className='flex flex-col justify-between gap-4'>
+                            <SheetClose asChild>
                                 <Button variant="outline" onClick={() => navigate("/login")}>Login</Button>
+                            </SheetClose>
+                            <SheetClose asChild>
                                 <Button onClick={() => navigate("/login")}>Signup</Button>
-                            </div>
-                        )
+                            </SheetClose>
+                        </div>
+                    )
                     }
                 </SheetContent>
             </Sheet>
