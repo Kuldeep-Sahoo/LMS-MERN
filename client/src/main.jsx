@@ -13,7 +13,7 @@ const Custom = ({ children }) => {
   return (
     <>
       {
-        isLoading ?<LoadingSpinner></LoadingSpinner>: <>{children}</>
+        isLoading ? <LoadingSpinner></LoadingSpinner> : <>{children}</>
       }
     </>
   )

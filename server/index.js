@@ -31,7 +31,7 @@ const allowedOrigins = [
   "http://192.168.154.237:5173",
   "http://169.254.211.9:5173",
   "http://192.168.233.237:5173",
-  "https://lms-mern-u4qr.onrender.com/",
+  "https://lms-mern-u4qr.onrender.com",
 ];
 
 app.use(
