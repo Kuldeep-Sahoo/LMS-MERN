@@ -15,9 +15,9 @@ const CourseDetail = () => {
     const { data, isLoading, isError, } = useGetCourseDetailWithStatusQuery(courseId)
     console.log(data);
     // const { course, purchased } = data
-    const course=data?.course
-    const purchased=data?.purchased
-    const navigate=useNavigate()
+    const course = data?.course
+    const purchased = data?.purchased
+    const navigate = useNavigate()
     const handleContinueCourse = async () => {
         if (purchased) {
             navigate(`/course-progress/${courseId}`)
@@ -37,7 +37,7 @@ const CourseDetail = () => {
                         <p>Last updated {course?.createdAt.split("T")[0]}</p>
 
                     </div>
-                    <p>Students enrolled: {course.enrolledStudents.length}</p>
+                    <p>Students enrolled: {course?.enrolledStudents.length}</p>
                 </div>
             </div>
 
@@ -59,7 +59,7 @@ const CourseDetail = () => {
                                                 lecture?.isPreviewFree ? <PlayCircle size={14} /> : <Lock size={14} />
                                             }
                                         </span>
-                                        <p>{lecture.lectureTitle}</p>
+                                        <p>{lecture?.lectureTitle}</p>
                                     </div>
                                 ))
                             }
@@ -74,13 +74,13 @@ const CourseDetail = () => {
                                 <ReactPlayer
                                     width={"100%"}
                                     height={"100%"}
-                                    url={course.lectures[0]?.videoUrl}
+                                    url={course?.lectures[0]?.videoUrl}
                                     controls
                                 />
                             </div>
-                            <h1>{course.lectures[0]?.lectureTitle}</h1>
+                            <h1>{course?.lectures[0]?.lectureTitle}</h1>
                             <Separator className="my-2" />
-                            <h1 className='text-lg md:text-xl font-semibold'>₹{course.coursePrice}</h1>
+                            <h1 className='text-lg md:text-xl font-semibold'>₹{course?.coursePrice}</h1>
                         </CardContent>
                         <CardFooter className="flex justify-center p-4">
 
@@ -90,7 +90,6 @@ const CourseDetail = () => {
                                     <Button className="w-full" onClick={handleContinueCourse}>Continue Course</Button>
                                     :
                                     <BuyCourseButton courseId={courseId} />}
-
                         </CardFooter>
                     </Card>
                 </div>
