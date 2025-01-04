@@ -9,6 +9,8 @@ import purchaseRoute from "./routes/coursePurchase.route.js";
 import courseProgressRoute from "./routes/courseProgress.route.js";
 import cookieParser from "cookie-parser";
 import cors from "cors";
+import path from "path";
+
 dotenv.config();
 
 // call db connection
@@ -25,6 +27,7 @@ const allowedOrigins = [
   process.env.FRONTEND_URL,
   "http://localhost:5173",
   "http://192.168.59.1:5173",
+  "http://localhost:8080",
   "http://192.168.217.1:5173",
   "http://192.168.115.237:5173",
   "http://192.168.43.164:5173",
@@ -78,6 +81,17 @@ const logResponse = (req, res, next) => {
 
 // Use the middleware
 app.use(logResponse);
+
+// --------------------------deployment------------------------------
+
+const __dirname1 = path.resolve();
+
+app.use(express.static(path.join(__dirname1, "/client/dist")));
+
+app.get("*", (req, res) =>
+  res.sendFile(path.resolve(__dirname1, "frontend", "dist", "index.html"))
+);
+// --------------------------deployment------------------------------
 
 app.listen(port, () => {
   console.log(`Server Listen at PORT: ${port}`.yellow.bgBlue);
