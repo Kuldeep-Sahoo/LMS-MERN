@@ -10,8 +10,10 @@ import { Loader2 } from 'lucide-react'
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { toast } from 'sonner'
+// 
+// const MEDIA_ROUT = "https://lms-mern-final-kuldeep.onrender.com/api/v1/media"
+const MEDIA_ROUT = "http://localhost:8080/api/v1/media"
 
-const MEDIA_ROUT = "https://lms-mern-final-kuldeep.onrender.com/api/v1/media"
 // const MEDIA_ROUT = `${import.meta.env.VITE_API_URL}/media`
 
 const Lecturetab = () => {

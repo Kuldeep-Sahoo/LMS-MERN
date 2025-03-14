@@ -48,7 +48,7 @@ const SearchPage = () => {
                                 <CourseNotFound />
                             ) : (
                                 data?.courses?.map((course) => (
-                                    <SeaechResult key= {course._id} course={course}/>
+                                    <SeaechResult key= {course._id} course={course} />
                                 ))
                             )
                         )
@@ -85,7 +85,7 @@ const CourseSkeleton = () => {
 }
 const CourseNotFound = () => {
     return (
-        <div className="flex flex-col items-center justify-center min-h-32 dark:bg-gray-900 p-6">
+        <div className="flex flex-col items-center justify-center min-h-32 dark:bg-[#020817]">
             <AlertCircle className="text-red-500 h-16 w-16 mb-4" />
             <h1 className="font-bold text-2xl md:text-4xl text-gray-800 dark:text-gray-200 mb-2">
                 Course Not Found

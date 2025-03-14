@@ -54,6 +54,7 @@ export const createChechoutSession = async (req, res) => {
       },
     });
 
+    console.log("here");
     if (!session.url) {
       return res
         .status(400)

@@ -36,6 +36,7 @@ const allowedOrigins = [
   "http://192.168.233.237:5173",
   "https://lms-mern-u4qr.onrender.com",
   "https://lms-mern-final-kuldeep.onrender.com ",
+  "https://lms-kuldeep-c0nxixwdr-kuldeep1922s-projects.vercel.app/"
 ];
 
 app.use(

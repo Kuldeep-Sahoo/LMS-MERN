@@ -29,14 +29,14 @@ const Filter = ({ handleFilterChange }) => {
                 :
                 [...prevCategory, categoryId]
             console.log(newCategories, sortByPrice);
-            
+
             handleFilterChange(newCategories, sortByPrice)
             return newCategories
         })
     }
     const selectByPriceHandler = (selectedValue) => {
         setSortByPrice(selectedValue)
-        handleFilterChange(selectedCategories,selectedValue)
+        handleFilterChange(selectedCategories, selectedValue)
     }
     return (
         <div className='w-full md:w-[20%]'>
@@ -56,13 +56,13 @@ const Filter = ({ handleFilterChange }) => {
                 </Select>
             </div>
             <Separator className="my-4" />
-            <div>
-                <h1 className='font-semibold mb-2'>CATEGORY</h1>
+            <h1 className='font-semibold mt-2 absolute md:inline-block xl:block pr-[10px]'>CATEGORY</h1>
+            <div className='flex md:block  overflow-auto max-w-[80vw]  ml-[120px] md:ml-0'>
                 {
                     categories.map((category, idx) => (
-                        <div className='flex items-center space-x-2 my-2' key={idx}>
+                        <div className='flex md:block items-center justify-center space-x-2 my-2 m-4 font-mono text-xs md:mt-[50px]' key={idx}>
                             <Checkbox id={category.id} onCheckedChange={() => handleCategoryChange(category.id)} />
-                            <Label className='text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70'>
+                            <Label className='text-sm font-medium leading-none peer-disabled:cursor-allowed peer-disabled:opacity-70 w-max '>
                                 {category.label}
                             </Label>
                         </div>
