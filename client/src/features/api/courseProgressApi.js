@@ -5,7 +5,7 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 // const USER_API = "http://192.168.154.237:8080/api/v1/user/";
 // const USER_API = "http://169.254.211.9:8080/api/v1/user/";
 // const USER_API = "http://192.168.233.237:8080/api/v1/user/";
-const COURSE_PROGRESS_API = "http://localhost:8080/api/v1/progress/";
+const COURSE_PROGRESS_API = "https://lms-kuldeep.vercel.app/api/v1/progress/";
 // const COURSE_PROGRESS_API =  `${import.meta.env.VITE_API_URL}/progress`;
 
 export const courseProgressApi = createApi({
