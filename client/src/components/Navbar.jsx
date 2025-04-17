@@ -1,5 +1,5 @@
 import { Menu, School } from 'lucide-react'
-import React, { useEffect } from 'react'
+import { useEffect } from 'react'
 import {
     DropdownMenu,
     DropdownMenuContent,
@@ -47,7 +47,7 @@ const Navbar = () => {
     return (
         <div className='h-16 dark:bg-[#0a0a0a] bg-white border-b dark:border-b-gray-800 border-b-gray-200 fixed top-0 left-0 right-0 duration-300 z-10'>
             {/* Desktop */}
-            <div className='max-w-7xl mx-auto hidden md:flex justify-between items-center gap-10 h-full'>
+            <div className='max-w-7xl p-2 mx-auto hidden md:flex justify-between items-center gap-10 h-full'>
                 <div className='flex items-center gap-2'>
                     <School size={"30"} />
                     <h1 className='hidden md:block font-extrabold text-2xl'><Link to="/">Kuldeep-LMS</Link></h1>
@@ -133,7 +133,7 @@ const MobileNavbar = () => {
         <>
             <Sheet>
                 <SheetTrigger asChild>
-                    <Button size="icon" className="rounded-full  hover:bg-gray-200" variant="outline">
+                    <Button size="icon" className="rounded-xl  hover:bg-gray-200" variant="outline">
                         <Menu />
                     </Button>
                 </SheetTrigger>
