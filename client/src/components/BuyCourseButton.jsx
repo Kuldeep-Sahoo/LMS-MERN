@@ -25,7 +25,7 @@ const BuyCourseButton = ({ courseId }) => {
     }, [data,isSuccess,isError,error])
     
     return (
-        < Button className="w-full" onClick={purchaseCourseHandler}
+        < Button className="w-full " onClick={purchaseCourseHandler}
             disabled={isLoading}
         >
             {
