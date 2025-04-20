@@ -1,0 +1,9 @@
+/* src/styles/nprogress-custom.css */
+#nprogress .bar {
+  height: 3px;
+  background: linear-gradient(to right, red, green) !important;
+}
+
+#nprogress .peg {
+  box-shadow: 0 0 10px red, 0 0 5px green;
+}
