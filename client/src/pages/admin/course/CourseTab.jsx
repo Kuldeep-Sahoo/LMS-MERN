@@ -90,7 +90,8 @@ const CourseTab = () => {
         formData.append("courseThumbnail", input.courseThumbnail);
         formData.append("courseTitle", input.courseTitle);
         formData.append("description", input.description);
-        formData.append("subTitle", input.subTitle);        // console.log(input);
+        formData.append("subTitle", input.subTitle);
+        console.log(input);
 
         await editCourse({ formData, courseId })
     }
